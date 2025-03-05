@@ -13,4 +13,5 @@ In addition, I've done firebase functions and API services to get info from Goog
 |![tasquer-add.png](screenshots/tasquer-add.png)|![tasquer-auth-firebase-services.png](screenshots/tasquer-auth-firebase-services.png)|
 |![tasquer-calendar.png](screenshots/tasquer-calendar.png)|![tasquer-dialog.png](screenshots/tasquer-dialog.png)|
 |![tasquer-login-validation-fields.png](screenshots/tasquer-login-validation-fields.png)|![tasquer-textfields-validation.png](screenshots/tasquer-textfields-validation.png)|
-|![spreadsheets_connection_view.png](screenshots/spreadsheets_connection_view.png)|
+
+![spreadsheets_connection_view.png](screenshots/spreadsheets_connection_view.png)
