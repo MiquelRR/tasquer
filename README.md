@@ -1,4 +1,4 @@
-# elpaisRSS
+# Tasquer - multiuser task app with Spreadsheets overview
 news app loader from RSS
 
 This is a practice for firebase auth, firebase firestore services and jetpack compose paradigm.
