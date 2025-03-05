@@ -50,6 +50,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.util.Logger
 import com.miquel.firebasetraining.R
 import com.miquel.firebasetraining.ui.theme.Black
 import com.miquel.firebasetraining.ui.theme.Pink80
@@ -74,22 +75,13 @@ fun LoginScreen(auth: FirebaseAuth, navigateBack: () -> Boolean, goToHome: () ->
     var password: String by remember { mutableStateOf("")}
     var dialogMessage by remember { mutableStateOf("") }
     val focusManager = LocalFocusManager.current
-    val context = LocalContext.current
+
     Column( modifier = Modifier
         .fillMaxSize()
         .background(Color.LightGray)
         .padding(horizontal = 32.dp)
     ){
-        /*
-        Icon(
-            painter = painterResource(id = R.drawable.ic_back),
-            contentDescription = "back icon",
-            tint = White,
-            modifier = Modifier
-                .padding(vertical = 24.dp)
-                .size(24.dp)
-                .clickable { navigateBack() }
-        )*/
+
         Spacer(modifier = Modifier.height(48.dp))
 
         Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -165,8 +157,10 @@ fun LoginScreen(auth: FirebaseAuth, navigateBack: () -> Boolean, goToHome: () ->
             Button(colors = ButtonDefaults.buttonColors(containerColor = Pink80),
                 onClick = {
                     if(isValidEmail(email) && isValidPassword(password)){
+                        auth.signOut()
                         auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(){
                             if(it.isSuccessful){
+                                Log.d("GOHOME", "Login successful")
                                 //Toast.makeText( context , "Login successful", Toast.LENGTH_SHORT).show()
                                 goToHome()
                             } else {
@@ -219,7 +213,7 @@ fun LoginScreen(auth: FirebaseAuth, navigateBack: () -> Boolean, goToHome: () ->
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 // Sign in success, update UI with the signed-in user's information
-                                Log.d("successLog", "createUserWithEmail:success")
+                                Log.d("GOHOME", "JUST CREATED USER")
                                 goToHome()
                             } else {
                                 dialogMessage="Error al crear el compte"
@@ -246,7 +240,7 @@ fun LoginScreen(auth: FirebaseAuth, navigateBack: () -> Boolean, goToHome: () ->
                 TextButton(onClick = {
                     dialogMessage = ""
                     auth.signOut()
-                    navigateBack() // Call the navigateBack function
+                    //navigateBack() // Call the navigateBack function que fillsdepuis
                 }) {
                     Text("Eixir")
                 }

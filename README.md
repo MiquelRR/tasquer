@@ -1,5 +1,6 @@
 # Tasquer - multiuser task app with Spreadsheets overview
-
+Github :
+https://github.com/MiquelRR?tab=repositories
 This is a practice for firebase auth, firebase firestore services and jetpack compose paradigm.
 
 https://docs.google.com/spreadsheets/d/1_4pWZVMM_rvTW0TrBUJByHJpNDcTYGYDy4Hp1gMeaG0/edit?usp=sharing

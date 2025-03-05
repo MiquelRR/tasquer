@@ -69,24 +69,21 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeScreen(auth: FirebaseAuth, navigateBack: () -> Unit, navigateToAdd: () -> Unit ) {
     val taskViewModel: TaskViewModel = viewModel()
-
-
     //Toast.makeText(LocalContext.current, auth.currentUser?.uid, Toast.LENGTH_SHORT).show()
     // Fetch tasks when the composable is first launched
     LaunchedEffect(key1 = auth.currentUser?.uid) {
-        auth.currentUser?.uid?.let { taskViewModel.getTasksForUser(it) }
+
+            auth.currentUser?.uid?.let { taskViewModel.getTasksForUser(it) }
+
     }
 
-    //var selectedFilter = taskViewModel.filter
-
-    var selectedFilter by remember { mutableStateOf("All") }
     var showExitDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {AppTopBar(auth)},
         bottomBar = {
             BottomNavigationBar(
-                selectedFilter,
+                auth = auth,
                 onFilterSelected = { filter ->
                 taskViewModel.updateFilter(filter)},
                 onLogout ={ showExitDialog = true },
@@ -108,9 +105,7 @@ fun HomeScreen(auth: FirebaseAuth, navigateBack: () -> Unit, navigateToAdd: () -
             confirmButton = {
                 TextButton(onClick = {
                     showExitDialog = false
-                    Log.d("TAG", "HomeScreen before signout : ${auth.currentUser?.uid}")
                     auth.signOut()
-                    Log.d("TAG", "HomeScreen after signout : ${auth.currentUser?.uid}")
                     navigateBack() // Call the navigateBack function
                 }) {
                     Text("Eixir")
@@ -176,7 +171,7 @@ fun AppTopBar(auth: FirebaseAuth){
 }
 @Composable
 fun BottomNavigationBar(
-    selectedFilter: String,
+    auth: FirebaseAuth,
     onFilterSelected: (String) -> Unit,
     onLogout: () -> Unit,
     navigateToAdd: () -> Unit
@@ -211,7 +206,8 @@ fun BottomNavigationBar(
         NavigationBarItem(
             selected = false            ,
             onClick = {
-               onLogout()
+                auth.signOut()
+                onLogout()
             },
             label = { Text("Eixir") },
             icon = { Icon(Icons.Outlined.ArrowBack, contentDescription = "Exit") }
